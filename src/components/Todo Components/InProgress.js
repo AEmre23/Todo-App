@@ -4,7 +4,7 @@ import axios from 'axios';
 import {HiOutlineThumbUp} from "react-icons/hi";
 
 
-const InProgress = ({ApiData,setApiData,inProgress}) => {
+const InProgress = ({ApiData,setApiData,inProgress,setLoading}) => {
   const apiEndPoint = 'https://63134156a8d3f673ffc74e08.mockapi.io/todo'
 
   const UpdateWEnter = async (e) => {
@@ -13,6 +13,7 @@ const InProgress = ({ApiData,setApiData,inProgress}) => {
       let newContent = e.target.value
       if (newContent.length<3) window.alert('En az 3 karakter gir!')
         else{
+        setLoading(true)
         const updated = { id: getID, content:newContent, isCompleted:false }
         await axios.put(apiEndPoint + '/' + getID, updated)
 
@@ -20,6 +21,7 @@ const InProgress = ({ApiData,setApiData,inProgress}) => {
         const index = clone.indexOf(ApiData[getID-1])
         clone[index] = {...updated}
         setApiData(clone)
+        setLoading(false)
         e.target.value = ''
         e.target.previousElementSibling.style.visibility='hidden'
         e.target.style.visibility = 'hidden'
@@ -33,12 +35,14 @@ const InProgress = ({ApiData,setApiData,inProgress}) => {
     let newContent = e.target.nextElementSibling.value
     if (newContent.length<3) window.alert('En az 3 karakter gir!')
       else{
+      setLoading(true)
       const updated = { id: getID, content:newContent, isCompleted:false }
       await axios.put(apiEndPoint + '/' + getID, updated)
       const clone = [...ApiData]
       const index = clone.indexOf(ApiData[getID-1])
       clone[index] = {...updated}
       setApiData(clone)
+      setLoading(false)
       e.target.nextElementSibling.value = ''
       e.target.nextElementSibling.style.visibility='hidden'
       e.target.style.visibility = 'hidden'
@@ -48,15 +52,16 @@ const InProgress = ({ApiData,setApiData,inProgress}) => {
 
   const Successful = async (e) => {
     e.preventDefault()
+    setLoading(true)
     let getID = e.target.getAttribute('id')
     let getContent = e.target.parentNode.firstChild.innerText
-
     const updated = { id:getID, content:getContent, isCompleted:true  }
     await axios.put(apiEndPoint + '/' + getID, updated)
     const clone = [...ApiData]
     const index = clone.indexOf((ApiData.filter((p) => p.id == getID))[0])
     clone[index] = {...updated}
     setApiData(clone)
+    setLoading(false)
   }
   const editOpener = (e) => {
     if (e.currentTarget.previousElementSibling.style.visibility=='hidden'){
@@ -80,8 +85,10 @@ const InProgress = ({ApiData,setApiData,inProgress}) => {
   }
 
   const Deleter = async (x) => {
+    setLoading(true)
     await axios.delete(apiEndPoint + '/' + x.id )
     setApiData(ApiData.filter((p) => p.id !== x.id))
+    setLoading(false)
   }
 
   let progressCount=0 // Count the amount of uncompleted todo's

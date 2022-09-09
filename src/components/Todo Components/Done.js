@@ -2,24 +2,28 @@ import React from 'react'
 import axios from 'axios';
 import {HiOutlineThumbDown} from "react-icons/hi";
 
-const Done = ({setApiData,ApiData,done}) => {
+const Done = ({setApiData,ApiData,done,setLoading}) => {
 
   const apiEndPoint = 'https://63134156a8d3f673ffc74e08.mockapi.io/todo'
 
   const Fail = async (e) => {
+    setLoading(true)
     let getID = e.target.getAttribute('id')
     let getContent = e.target.parentNode.firstChild.innerText
-      const updated = { id:getID, content:getContent, isCompleted:false }
-      await axios.put(apiEndPoint + '/' + getID, updated)
-      const clone = [...ApiData]
-      const index = clone.indexOf((ApiData.filter((p) => p.id == getID))[0])
-      clone[index] = {...updated}
-      setApiData(clone)
+    const updated = { id:getID, content:getContent, isCompleted:false }
+    await axios.put(apiEndPoint + '/' + getID, updated)
+    const clone = [...ApiData]
+    const index = clone.indexOf((ApiData.filter((p) => p.id == getID))[0])
+    clone[index] = {...updated}
+    setApiData(clone)
+    setLoading(false)
   }
 
   const Deleter = async (item) => {
+    setLoading(true)
     await axios.delete(apiEndPoint + '/' + item.id )
     setApiData(ApiData.filter((p) => p.id !== item.id))
+    setLoading(false)
   }
 
   let doneCount=0 // Count the amount of completed todo's

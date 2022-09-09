@@ -1,9 +1,9 @@
 # Todo App
 
 Hello,
-This project made for Popupsmart React Practicum. I use create-react-app.
+This project made for [Popupsmart React Practicum](https://www.patika.dev/bootcamp/popupsmart-react-practicum). I use create-react-app.
 
-### What they want from us:
+### These are the what they want from us for complete the challenge:
 
 - We want to get username from user and store it in localstorage. You can show the username anywhere on the page.
 - We want all CRUD operations to take place on Todos. (Adding, deleting, editing, listing todos). You must perform all operations through the API you created.

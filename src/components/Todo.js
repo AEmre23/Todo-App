@@ -3,7 +3,7 @@ import InputArea from './Todo Components/InputArea';
 import InProgress from './Todo Components/InProgress';
 import Done from './Todo Components/Done'
 
-const Todo = ({ApiData,setApiData}) => {
+const Todo = ({ApiData,setApiData,setLoading}) => {
   const submitArea = useRef(); // for width setting
   const inProgress = useRef(); // for display setting
   const done = useRef(); // for display setting
@@ -29,16 +29,19 @@ const Todo = ({ApiData,setApiData}) => {
         ApiData={ApiData}
         setApiData={setApiData}
         submitArea={submitArea}
+        setLoading={setLoading}
       />
       <InProgress 
         ApiData={ApiData}
         setApiData={setApiData}
         inProgress={inProgress}
+        setLoading={setLoading}
       />
       <Done 
         ApiData={ApiData}
         setApiData={setApiData}
         done={done}
+        setLoading={setLoading}
       />
     </div>
   )

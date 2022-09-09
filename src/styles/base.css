@@ -11,18 +11,6 @@ body{
   margin:0;
   overflow: hidden;
 }
-#loader{
-position: absolute;
-top:45%;
-left: 48%;
-display:none;
-width: 40px;
-padding: 1px 2px;
-background-color: white;
-border-radius: 20px;
-opacity: .7;
-
-}
 .App{
   max-height: 100vh;
   font-family: 'Poppins', sans-serif;
@@ -31,6 +19,32 @@ opacity: .7;
   color:var(--kombu-green);
   background-color: var(--cornsilk);
   transition: all .2s ease;
+}
+.loading{
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 1;
+  color: currentColor;
+  font-size: 26px;
+  font-weight: 600;
+  width: 100%;
+  height: calc(100vh - 140px);
+  color: currentColor;
+  background-color: black;
+  opacity: .7;
+}
+.loading img{
+  margin-right: 5px;
 }
 .img-container{
   width: 100%;
@@ -411,6 +425,13 @@ opacity: .7;
   }
 }
 @media (max-width:1068px){
+  body{
+    overflow: visible;
+  }
+  .loading{
+    top: 0;
+    height: 100vh;
+  }
   .App{
     min-height: 100vh;
     max-height: max-content;
@@ -436,15 +457,13 @@ opacity: .7;
     min-height: 300px;
     height: auto;
     max-height: 500px;
+    margin-bottom: 30px;
   }
   .update-button{
     left: 50%;
   }
 }
 @media (max-width:475px){
-  body{
-    overflow: visible;
-  }
   .img-container img{
     width: 250%;
     right: 38%;

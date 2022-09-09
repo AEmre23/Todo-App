@@ -4,7 +4,7 @@ import {BiErrorAlt} from 'react-icons/bi'
 import Aos from 'aos';
 import "aos/dist/aos.css"
 
-const InputArea = ({ApiData,setApiData,submitArea}) => {
+const InputArea = ({ApiData,setApiData,submitArea,setLoading}) => {
   const apiEndPoint = 'https://63134156a8d3f673ffc74e08.mockapi.io/todo'
 
   useEffect(() => {
@@ -17,22 +17,26 @@ const InputArea = ({ApiData,setApiData,submitArea}) => {
     if(e.key === 'Enter') {
       if (addCont.current.value.length<3) todoError.current.style.opacity='1'
         else {
+        setLoading(true)
         const newData = { id: ApiData.length+1, content: addCont.current.value, isCompleted:false}
         await axios.post(apiEndPoint, newData);
         setApiData([...ApiData, newData])
         addCont.current.value=''
         todoError.current.style.opacity='0'
+        setLoading(false)
       }
     }
   }
   const Adder = async (e) => {
     if (addCont.current.value.length<3) todoError.current.style.opacity='1'
     else {
+    setLoading(true)
     const newData = { id: ApiData.length+1, content: addCont.current.value, isCompleted:false}
     await axios.post(apiEndPoint, newData);
     setApiData([...ApiData, newData])
     addCont.current.value=''
     todoError.current.style.opacity='0'
+    setLoading(false)
     }
   }
   return (
