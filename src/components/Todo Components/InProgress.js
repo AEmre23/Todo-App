@@ -18,7 +18,7 @@ const InProgress = ({ApiData,setApiData,inProgress,setLoading}) => {
         await axios.put(apiEndPoint + '/' + getID, updated)
 
         const clone = [...ApiData]
-        const index = clone.indexOf(ApiData[getID-1])
+        const index = clone.indexOf((ApiData.filter((p) => p.id == getID))[0])
         clone[index] = {...updated}
         setApiData(clone)
         setLoading(false)
@@ -39,7 +39,7 @@ const InProgress = ({ApiData,setApiData,inProgress,setLoading}) => {
       const updated = { id: getID, content:newContent, isCompleted:false }
       await axios.put(apiEndPoint + '/' + getID, updated)
       const clone = [...ApiData]
-      const index = clone.indexOf(ApiData[getID-1])
+      const index = clone.indexOf((ApiData.filter((p) => p.id == getID))[0])
       clone[index] = {...updated}
       setApiData(clone)
       setLoading(false)
